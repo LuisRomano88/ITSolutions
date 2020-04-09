@@ -1,9 +1,8 @@
 <?php
-
 session_start();
-if($_POST == $_POST["cerrarSesion"]){
+// if($_POST == $_POST["cerrarSesion"]){
+if(isset($_POST["cerrarSesion"])){
   session_destroy();
-
 }
 
 

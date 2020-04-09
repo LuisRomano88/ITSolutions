@@ -28,6 +28,9 @@ if ($_POST) {
           }
         }
       }
+
+    } else {
+      return $arrayDeErroresLogin;
     }
 
   }

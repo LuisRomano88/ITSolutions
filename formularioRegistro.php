@@ -3,13 +3,33 @@
 include_once("controladores/validarRegistro.php");
 include_once("controladores/guardarUsuario.php");
 include_once("controladores/persistirDatos.php");
+include_once("controladores/validacionLogin.php");
 $arrayDeErrores = "";
-    if ($_POST) {
+    if (isset($_POST)) {
     $arrayDeErrores = validarRegistroUsuario($_POST);
       if ($arrayDeErrores) {
         $usuarioLogueado = guardarUsuarioLogueado($_POST);
-        session_start();
-        header("Location: index.php");
+        // session_start();
+        // header("Location: index.php");
+        $jsonUsuariosGuardados = file_get_contents("usuarios.json");
+        $explodeDeUsuarios = explode(PHP_EOL,$jsonUsuariosGuardados);
+        array_pop($explodeDeUsuarios);
+
+        //recorro los usuarios guardados con un foreach
+        //para iniciar sesion
+        foreach ($explodeDeUsuarios as $usuarioJson) {
+          $userFinal = json_decode($usuarioJson, true);
+          if ($userFinal["email"] == $_POST["email"]) {
+            if (password_verify($_POST["password"], $userFinal["password"])) {
+                session_start();
+                $_SESSION["email"] = $userFinal["email"];
+                $_SESSION["nombre"] = $userFinal["nombre"];
+                $_SESSION["apellido"] = $userFinal["apellido"];
+                $_SESSION["imgPerfil"] = $userFinal["imgPerfil"];
+                header("Location: index.php");
+              }
+            }
+          }
       }
     }
 
