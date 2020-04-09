@@ -4,8 +4,6 @@ include_once("controladores/validacionLogin.php");
 include_once("controladores/persistirDatos.php");
 
 
-session_start();
-
 $arrayDeErroresLogin = "";
 if ($_POST) {
 
@@ -21,6 +19,8 @@ if ($_POST) {
       $userFinal = json_decode($usuarioJson, true);
       if ($userFinal["email"] == $_POST["email"]) {
         if (password_verify($_POST["password"], $userFinal["password"])) {
+            session_start();
+            $_SESSION["email"] = $userFinal["email"];
             $_SESSION["nombre"] = $userFinal["nombre"];
             $_SESSION["apellido"] = $userFinal["apellido"];
             $_SESSION["imgPerfil"] = $userFinal["imgPerfil"];
@@ -29,6 +29,7 @@ if ($_POST) {
         }
       }
     }
+
   }
 
 

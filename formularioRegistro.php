@@ -8,6 +8,7 @@ $arrayDeErrores = "";
     $arrayDeErrores = validarRegistroUsuario($_POST);
       if ($arrayDeErrores) {
         $usuarioLogueado = guardarUsuarioLogueado($_POST);
+        session_start();
         header("Location: index.php");
       }
     }

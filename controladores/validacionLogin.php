@@ -49,6 +49,8 @@ function validarLogin($arrayLogin){
  }
     }
 
+    //Validar que el usuario se encuentre en la
+    //de no encontrarse enviarlo a registro
 
     if (count($erroresLogin) === 0) {
       return true;
