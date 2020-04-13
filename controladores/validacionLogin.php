@@ -54,8 +54,7 @@ function validarLogin($arrayLogin){
 
     if (count($erroresLogin) === 0) {
       return true;
-    }
-    else {
+    } else {
       return $erroresLogin;
     }
   }
